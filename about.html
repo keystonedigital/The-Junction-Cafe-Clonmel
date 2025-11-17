@@ -5,37 +5,22 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="description" content="Learn about Junction Cafe - Our story and commitment to excellence" />
     <title>Junction Cafe - About Us</title>
-
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
-
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-        href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@300;400;600&display=swap"
-        rel="stylesheet"
-    />
-
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@300;400;600&display=swap"
+          rel="stylesheet" />
     <style>
         :root {
-            --mickey-head-size: 46rem; /* Increased size */
-            --mickey-ear-size: 12rem; /* Increased size */
+            --mickey-head-size: 46rem;
+            --mickey-ear-size: 12rem;
             --mickey-ear-offset: -4.5rem;
         }
-
-        .font-playfair {
-            font-family: "Playfair Display", serif;
-        }
-        .font-inter {
-            font-family: "Inter", sans-serif;
-        }
-
-        /* Navigation Underline Effect */
-        .nav-link {
-            position: relative;
-            transition: color 0.3s ease;
-        }
+        .font-playfair { font-family: "Playfair Display", serif; }
+        .font-inter { font-family: "Inter", sans-serif; }
+        .nav-link { position: relative; transition: color 0.3s ease; }
         .nav-link::after {
             content: "";
             position: absolute;
@@ -46,12 +31,7 @@
             background-color: var(--primary-white, #fff);
             transition: width 0.3s ease;
         }
-        .nav-link:hover::after,
-        .nav-link.active::after {
-            width: 100%;
-        }
-
-        /* About Section Background */
+        .nav-link:hover::after, .nav-link.active::after { width: 100%; }
         .about-section {
             background-image: linear-gradient(
                     rgba(0, 0, 0, 0.6),
@@ -61,23 +41,13 @@
             background-size: cover;
             background-position: center;
             background-attachment: fixed;
+            min-height: 100vh;
         }
-
-        /* Fade In Animation */
         @keyframes fadeIn {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+            from { opacity: 0; transform: translateY(20px);}
+            to { opacity: 1; transform: translateY(0);}
         }
-        .animate-fade-in {
-            animation: fadeIn 1s ease-out forwards;
-        }
-
+        .animate-fade-in { animation: fadeIn 1s ease-out forwards;}
         .mickey-container {
             --mickey-head-size-local: var(--mickey-head-size);
             --mickey-ear-size-local: var(--mickey-ear-size);
@@ -94,27 +64,22 @@
             position: absolute;
             width: var(--mickey-ear-size-local);
             height: var(--mickey-ear-size-local);
-            background: rgba(255, 255, 255, 0.95);
+            background: rgba(255,255,255,0.95);
             backdrop-filter: blur(10px);
             border-radius: 50%;
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
             top: var(--mickey-ear-offset-local);
             z-index: 5;
         }
-        .mickey-ear.left {
-            left: 0;
-        }
-        .mickey-ear.right {
-            right: 0;
-        }
-
+        .mickey-ear.left { left: 0;}
+        .mickey-ear.right { right: 0;}
         .mickey-head {
             width: var(--mickey-head-size-local);
             height: var(--mickey-head-size-local);
-            background: rgba(255, 255, 255, 0.95);
+            background: rgba(255,255,255,0.95);
             backdrop-filter: blur(10px);
             border-radius: 50%;
-            box-shadow: 0 14px 35px rgba(0, 0, 0, 0.3);
+            box-shadow: 0 14px 35px rgba(0,0,0,0.3);
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -126,40 +91,41 @@
             text-align: center;
             max-width: 100%;
         }
-
-        @media (max-width: 640px) {
+        @media (max-width: 1024px) {
             :root {
-                --mickey-head-size: 16rem; /* Responsive smaller scaling */
-                --mickey-ear-size: 6rem;
-                --mickey-ear-offset: -3rem;
-            }
-            .mickey-head {
-                padding: 1.25rem 0.75rem;
+                --mickey-head-size: 26rem;
+                --mickey-ear-size: 8rem;
+                --mickey-ear-offset: -2.5rem;
             }
         }
-
-        html {
-            scroll-behavior: smooth;
+        @media (max-width: 640px) {
+            :root {
+                --mickey-head-size: 15rem;
+                --mickey-ear-size: 5rem;
+                --mickey-ear-offset: -1.5rem;
+            }
+            .mickey-head { padding: 1.2rem .5rem; }
+        }
+        html { scroll-behavior: smooth; }
+        /* Hide desktop logo margin on small screens */
+        @media (max-width: 640px) {
+          .logo-m-left { margin-left: 0 !important; }
         }
     </style>
 </head>
 <body class="font-inter bg-white text-black">
     <!-- Navigation Bar -->
     <nav class="fixed w-full z-50 bg-black text-white shadow-lg">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="max-w-7xl mx-auto px-2 sm:px-4 lg:px-8">
             <div class="flex justify-between items-center h-20">
                 <!-- Logo -->
-                <div class="flex-shrink-0">
+                <div class="flex-shrink-0 flex items-center">
                     <a href="index.html">
-                        <img
-                            src="images/junctionLogo2.png"
-                            alt="Junction Cafe Logo"
-                            class="h-24 w-auto ml-20"
-                        />
+                        <img src="images/junctionLogo2.png" alt="Junction Cafe Logo" class="h-14 w-auto logo-m-left sm:h-20" />
                     </a>
                 </div>
-                <!-- Desktop Navigation -->
-                <div class="hidden md:flex space-x-8">
+                <!-- Desktop Navbar -->
+                <div class="hidden md:flex flex-wrap items-center space-x-4 lg:space-x-8">
                     <a href="index.html" class="nav-link">Home</a>
                     <a href="menu.html" class="nav-link">Menu</a>
                     <a href="gelato.html" class="nav-link">Gelato</a>
@@ -170,63 +136,58 @@
                     <a href="contact.html" class="nav-link">Contact Us</a>
                 </div>
                 <!-- Mobile Menu Button -->
-                <div class="md:hidden">
-                    <button
-                        id="mobile-menu-button"
-                        class="text-white focus:outline-none focus:ring-2 focus:ring-white"
-                        aria-label="Toggle menu"
-                    >
-                        <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path
-                                stroke-linecap="round"
-                                stroke-linejoin="round"
-                                stroke-width="2"
-                                d="M4 6h16M4 12h16M4 18h16"
-                            ></path>
+                <div class="md:hidden flex items-center">
+                    <button id="mobile-menu-button" class="text-white focus:outline-none focus:ring-2 focus:ring-white" aria-label="Toggle menu">
+                        <svg class="h-7 w-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
                         </svg>
                     </button>
                 </div>
             </div>
         </div>
-        <!-- Mobile Navigation Menu -->
-        <div id="mobile-menu" class="hidden md:hidden bg-black">
-            <div class="px-2 pt-2 pb-3 space-y-1">
-                <a href="index.html" class="block px-3 py-2 text-white hover:bg-gray-800 rounded">Home</a>
-                <a href="menu.html" class="block px-3 py-2 text-white hover:bg-gray-800 rounded">Menu</a>
-                <a href="gelato.html" class="block px-3 py-2 text-white hover:bg-gray-800 rounded">Gelato</a>
-                <a href="about.html" class="block px-3 py-2 text-white hover:bg-gray-800 rounded">About</a>
+        <!-- Mobile Navigation Menu (full screen for usability) -->
+        <div id="mobile-menu" class="fixed inset-0 top-20 bg-black bg-opacity-95 z-50 hidden md:hidden animated fade-in">
+            <div class="flex flex-col items-center space-y-4 py-12">
+                <a href="index.html" class="block w-full text-center py-3 nav-link">Home</a>
+                <a href="menu.html" class="block w-full text-center py-3 nav-link">Menu</a>
+                <a href="gelato.html" class="block w-full text-center py-3 nav-link">Gelato</a>
+                <a href="about.html" class="block w-full text-center py-3 nav-link active">About</a>
+                <a href="gallery.html" class="block w-full text-center py-3 nav-link">Gallery</a>
+                <a href="reviews.html" class="block w-full text-center py-3 nav-link">Reviews</a>
+                <a href="memorabilia.html" class="block w-full text-center py-3 nav-link">Memorabilia</a>
+                <a href="contact.html" class="block w-full text-center py-3 nav-link">Contact Us</a>
             </div>
         </div>
     </nav>
 
     <!-- About Section -->
     <main>
-        <section class="about-section min-h-screen flex items-center justify-center px-4 py-20">
+        <section class="about-section min-h-screen flex items-center justify-center px-2 sm:px-4 py-10 sm:py-20">
             <div class="mickey-container animate-fade-in">
                 <div class="mickey-ear left"></div>
                 <div class="mickey-ear right"></div>
-                <div class="mickey-head">
-                    <h1 class="font-playfair text-4xl md:text-6xl font-bold mb-6 text-black text-center">
+                <div class="mickey-head flex flex-col items-center justify-center">
+                    <h1 class="font-playfair text-2xl xs:text-3xl sm:text-4xl md:text-5xl font-bold mb-5 text-black text-center leading-tight">
                         About Junction Cafe
                     </h1>
-                    <div class="text-gray-800 leading-relaxed space-y-4 text-center">
-                        <p class="text-lg md:text-1xl">
+                    <div class="text-gray-800 leading-relaxed text-center text-sm xs:text-base sm:text-lg md:text-xl space-y-3 sm:space-y-4">
+                        <p>
                             Welcome to Junction Cafe, where culinary excellence meets artisanal craftsmanship.
                             Located at the heart of the community, we are more than just a cafe—we are a destination
                             for those who appreciate the finer things in life.
                         </p>
-                        <p class="text-lg md:text-1xl">
+                        <p>
                             Our restaurant features a carefully curated menu that celebrates both classic and
                             contemporary cuisine, prepared with locally-sourced ingredients and served with
                             impeccable attention to detail. Each dish tells a story of passion, tradition,
                             and innovation.
                         </p>
-                        <p class="text-lg md:text-1xl">
+                        <p>
                             Complementing our restaurant is our artisanal gelato bar, where we craft small-batch,
                             authentic Italian gelato using traditional methods and the finest ingredients. Every
                             flavor is a celebration of taste, texture, and creativity.
                         </p>
-                        <p class="text-lg md:text-1xl">
+                        <p>
                             Whether you're joining us for a memorable meal or indulging in our signature gelato,
                             we invite you to experience the Junction Cafe difference. This is where great food,
                             warm hospitality, and unforgettable moments come together.
@@ -238,20 +199,18 @@
     </main>
 
     <!-- Footer -->
-    <footer class="bg-black text-white py-12">
+    <footer class="bg-black text-white py-10 sm:py-12">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
-                <!-- About Section -->
                 <div>
-                    <h3 class="font-playfair text-xl font-bold mb-4">Junction Cafe</h3>
+                    <h3 class="font-playfair text-lg sm:text-xl font-bold mb-4">Junction Cafe</h3>
                     <p class="text-gray-300 text-sm leading-relaxed">
                         Where exceptional dining meets artisanal gelato in perfect harmony. Experience the finest
                         flavors and warmest hospitality.
                     </p>
                 </div>
-                <!-- Quick Links -->
                 <div>
-                    <h3 class="font-playfair text-xl font-bold mb-4">Quick Links</h3>
+                    <h3 class="font-playfair text-lg sm:text-xl font-bold mb-4">Quick Links</h3>
                     <ul class="space-y-2 text-sm">
                         <li><a href="menu.html" class="text-gray-300 hover:text-white transition">Menu</a></li>
                         <li><a href="gelato.html" class="text-gray-300 hover:text-white transition">Gelato</a></li>
@@ -259,9 +218,8 @@
                         <li><a href="memorabilia.html" class="text-gray-300 hover:text-white transition">Memorabilia</a></li>
                     </ul>
                 </div>
-                <!-- Contact Info -->
                 <div>
-                    <h3 class="font-playfair text-xl font-bold mb-4">Contact</h3>
+                    <h3 class="font-playfair text-lg sm:text-xl font-bold mb-4">Contact</h3>
                     <p class="text-gray-300 text-sm mb-2">
                         <strong>Address:</strong> 123 Main Street, Your City
                     </p>
@@ -269,12 +227,10 @@
                         <strong>Phone:</strong> (123) 456-7890
                     </p>
                     <p class="text-gray-300 text-sm">
-                        <strong>Email:</strong>
-                        <a href="mailto:info@junctioncafe.com">info@junctioncafe.com</a>
+                        <strong>Email:</strong> <a href="mailto:info@junctioncafe.com">info@junctioncafe.com</a>
                     </p>
                 </div>
             </div>
-            <!-- Divider -->
             <div class="border-t border-gray-700 pt-8">
                 <div class="flex flex-col md:flex-row justify-between items-center">
                     <p class="text-gray-400 text-sm">&copy; 2025 Junction Cafe. All rights reserved.</p>
@@ -286,21 +242,23 @@
             </div>
         </div>
     </footer>
-
-    <!-- JavaScript for Mobile Menu Toggle -->
     <script>
         // Mobile menu toggle
         const mobileMenuButton = document.getElementById("mobile-menu-button");
         const mobileMenu = document.getElementById("mobile-menu");
-        mobileMenuButton.addEventListener("click", () => {
+        mobileMenuButton.addEventListener("click", e => {
+            e.stopPropagation();
             mobileMenu.classList.toggle("hidden");
         });
         document.addEventListener("click", (event) => {
-            const isClickInside =
-                mobileMenuButton.contains(event.target) || mobileMenu.contains(event.target);
-            if (!isClickInside && !mobileMenu.classList.contains("hidden")) {
-                mobileMenu.classList.add("hidden");
+            if (!mobileMenu.classList.contains("hidden")) {
+                const isClickInside =
+                  mobileMenuButton.contains(event.target) || mobileMenu.contains(event.target);
+                if (!isClickInside) mobileMenu.classList.add("hidden");
             }
+        });
+        Array.from(document.querySelectorAll('#mobile-menu a')).forEach(link => {
+            link.addEventListener('click', () => mobileMenu.classList.add('hidden'));
         });
     </script>
 </body>

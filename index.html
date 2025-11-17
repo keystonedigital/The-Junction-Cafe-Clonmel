@@ -15,44 +15,19 @@
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
 
     <style>
-        /* Custom CSS Variables */
         :root {
             --primary-black: #000000;
             --primary-white: #FFFFFF;
             --gray-accent: #333333;
         }
-
-        /* Custom Font Classes */
-        .font-playfair {
-            font-family: 'Playfair Display', serif;
-        }
-
-        .font-inter {
-            font-family: 'Inter', sans-serif;
-        }
-
-        /* Hero Animation */
+        .font-playfair { font-family: 'Playfair Display', serif; }
+        .font-inter { font-family: 'Inter', sans-serif; }
         @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+            from { opacity: 0; transform: translateY(30px);}
+            to { opacity: 1; transform: translateY(0);}
         }
-
-        .animate-fade-in-up {
-            animation: fadeInUp 1.2s ease-out forwards;
-        }
-
-        /* Navigation Underline Effect */
-        .nav-link {
-            position: relative;
-            transition: color 0.3s ease;
-        }
-
+        .animate-fade-in-up { animation: fadeInUp 1.2s ease-out forwards;}
+        .nav-link { position: relative; transition: color 0.3s ease;}
         .nav-link::after {
             content: '';
             position: absolute;
@@ -63,33 +38,22 @@
             background-color: var(--primary-white);
             transition: width 0.3s ease;
         }
-
-        .nav-link:hover::after,
-        .nav-link.active::after {
-            width: 100%;
-        }
-
-        /* Button Hover Effects */
-        .cta-button {
-            transition: all 0.3s ease;
-        }
-
+        .nav-link:hover::after, .nav-link.active::after { width: 100%; }
+        .cta-button { transition: all 0.3s ease; }
         .cta-button:hover {
             transform: translateY(-3px);
             box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
         }
-
-        /* Hero Background */
         .hero-section {
-            background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(images/remove-carpet-junction.png);
+            background-image: linear-gradient(rgba(0,0,0,0.5),rgba(0,0,0,0.5)),url(images/remove-carpet-junction.png);
             background-size: cover;
             background-position: center;
             background-attachment: fixed;
         }
-
-        /* Smooth Scroll */
-        html {
-            scroll-behavior: smooth;
+        html { scroll-behavior: smooth; }
+        /* Hide logo margin on mobile */
+        @media (max-width: 640px) {
+          .logo-m-left { margin-left: 0 !important; }
         }
     </style>
 </head>
@@ -97,17 +61,17 @@
 
     <!-- Navigation Bar -->
     <nav class="fixed w-full z-50 bg-black text-white shadow-lg">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="max-w-7xl mx-auto px-2 sm:px-4 lg:px-8">
             <div class="flex justify-between items-center h-20">
                 <!-- Logo -->
-                <div class="flex-shrink-0">
+                <div class="flex-shrink-0 flex items-center">
                     <a href="index.html">
-                        <img src="images/junctionLogo2.png" alt="Junction Cafe Logo" class="h-24 w-auto ml-20" />
+                        <img src="images/junctionLogo2.png" alt="Junction Cafe Logo" class="h-14 w-auto logo-m-left sm:h-20" />
                     </a>
                 </div>
 
                 <!-- Desktop Navigation -->
-                <div class="hidden md:flex space-x-8">
+                <div class="hidden md:flex flex-wrap items-center space-x-4 lg:space-x-8">
                     <a href="index.html" class="nav-link active">Home</a>
                     <a href="menu.html" class="nav-link">Menu</a>
                     <a href="gelato.html" class="nav-link">Gelato</a>
@@ -119,47 +83,49 @@
                 </div>
 
                 <!-- Mobile Menu Button -->
-                <div class="md:hidden">
+                <div class="md:hidden flex items-center">
                     <button id="mobile-menu-button" class="text-white focus:outline-none focus:ring-2 focus:ring-white" aria-label="Toggle menu">
-                        <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                        <svg class="h-7 w-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
                         </svg>
                     </button>
                 </div>
             </div>
         </div>
-
-        <!-- Mobile Navigation Menu -->
-        <div id="mobile-menu" class="hidden md:hidden bg-black">
-            <div class="px-2 pt-2 pb-3 space-y-1">
-                <a href="index.html" class="block px-3 py-2 text-white hover:bg-gray-800 rounded">Home</a>
-                <a href="menu.html" class="block px-3 py-2 text-white hover:bg-gray-800 rounded">Menu</a>
-                <a href="gelato.html" class="block px-3 py-2 text-white hover:bg-gray-800 rounded">Gelato</a>
-                <a href="about.html" class="block px-3 py-2 text-white hover:bg-gray-800 rounded">About</a>
+        <!-- Mobile Navigation Menu (full screen for usability) -->
+        <div id="mobile-menu" class="fixed inset-0 top-20 bg-black bg-opacity-95 z-50 hidden md:hidden animated fade-in">
+            <div class="flex flex-col items-center space-y-4 py-16">
+                <a href="index.html" class="block w-full text-center py-3 nav-link active">Home</a>
+                <a href="menu.html" class="block w-full text-center py-3 nav-link">Menu</a>
+                <a href="gelato.html" class="block w-full text-center py-3 nav-link">Gelato</a>
+                <a href="about.html" class="block w-full text-center py-3 nav-link">About</a>
+                <a href="gallery.html" class="block w-full text-center py-3 nav-link">Gallery</a>
+                <a href="reviews.html" class="block w-full text-center py-3 nav-link">Reviews</a>
+                <a href="memorabilia.html" class="block w-full text-center py-3 nav-link">Memorabilia</a>
+                <a href="contact.html" class="block w-full text-center py-3 nav-link">Contact Us</a>
             </div>
         </div>
     </nav>
 
     <!-- Hero Section -->
     <main>
-        <section class="hero-section min-h-screen flex items-center justify-center text-white">
-            <div class="text-center px-4 max-w-4xl mx-auto animate-fade-in-up">
+        <section class="hero-section min-h-screen flex items-center justify-center text-white pt-32 pb-16 sm:pb-24">
+            <div class="text-center px-4 sm:px-8 max-w-lg sm:max-w-4xl mx-auto animate-fade-in-up">
                 <!-- Main Heading -->
-                <h1 class="font-playfair text-5xl md:text-7xl font-bold mb-6">
+                <h1 class="font-playfair text-4xl xs:text-5xl sm:text-6xl md:text-7xl font-bold mb-6 leading-tight">
                     Welcome to the Junction Cafe
                 </h1>
-
                 <!-- Subtitle -->
-                <p class="text-xl md:text-2xl mb-12 font-light">
+                <p class="text-lg sm:text-xl md:text-2xl mb-8 sm:mb-12 font-light leading-relaxed">
                     Where exceptional dining meets artisanal gelato in perfect harmony
                 </p>
 
                 <!-- CTA Buttons -->
-                <div class="flex flex-col sm:flex-row gap-6 justify-center">
-                    <a href="menu.html" class="cta-button bg-white text-black px-8 py-4 rounded-lg text-lg font-semibold hover:bg-gray-100">
+                <div class="flex flex-col sm:flex-row gap-4 sm:gap-6 justify-center">
+                    <a href="menu.html" class="cta-button bg-white text-black px-7 py-4 rounded-lg text-base sm:text-lg font-semibold hover:bg-gray-100 transition">
                         View Restaurant
                     </a>
-                    <a href="gelato.html" class="cta-button bg-transparent border-2 border-white text-white px-8 py-4 rounded-lg text-lg font-semibold hover:bg-white hover:text-black">
+                    <a href="gelato.html" class="cta-button bg-transparent border-2 border-white text-white px-7 py-4 rounded-lg text-base sm:text-lg font-semibold hover:bg-white hover:text-black transition">
                         View Gelato
                     </a>
                 </div>
@@ -168,75 +134,73 @@
     </main>
 
     <!-- Footer -->
-<footer class="bg-black text-white py-12">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
-            <!-- About Section -->
-            <div>
-                <h3 class="font-playfair text-xl font-bold mb-4">Junction Cafe</h3>
-                <p class="text-gray-300 text-sm leading-relaxed">
-                    Where exceptional dining meets artisanal gelato in perfect harmony. Experience the finest flavors and warmest hospitality.
-                </p>
+    <footer class="bg-black text-white py-10 sm:py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
+                <!-- About Section -->
+                <div>
+                    <h3 class="font-playfair text-lg sm:text-xl font-bold mb-4">Junction Cafe</h3>
+                    <p class="text-gray-300 text-sm leading-relaxed">
+                        Where exceptional dining meets artisanal gelato in perfect harmony. Experience the finest flavors and warmest hospitality.
+                    </p>
+                </div>
+                <!-- Quick Links -->
+                <div>
+                    <h3 class="font-playfair text-lg sm:text-xl font-bold mb-4">Quick Links</h3>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="menu.html" class="text-gray-300 hover:text-white transition">Menu</a></li>
+                        <li><a href="gelato.html" class="text-gray-300 hover:text-white transition">Gelato</a></li>
+                        <li><a href="about.html" class="text-gray-300 hover:text-white transition">About Us</a></li>
+                        <li><a href="memorabilia.html" class="text-gray-300 hover:text-white transition">Memorabilia</a></li>
+                    </ul>
+                </div>
+                <!-- Contact Info -->
+                <div>
+                    <h3 class="font-playfair text-lg sm:text-xl font-bold mb-4">Contact</h3>
+                    <p class="text-gray-300 text-sm mb-2">
+                        <strong>Address:</strong> 123 Main Street, Your City
+                    </p>
+                    <p class="text-gray-300 text-sm mb-2">
+                        <strong>Phone:</strong> (123) 456-7890
+                    </p>
+                    <p class="text-gray-300 text-sm">
+                        <strong>Email:</strong> <a href="mailto:info@junctioncafe.com">info@junctioncafe.com</a>
+                    </p>
+                </div>
             </div>
-
-            <!-- Quick Links -->
-            <div>
-                <h3 class="font-playfair text-xl font-bold mb-4">Quick Links</h3>
-                <ul class="space-y-2 text-sm">
-                    <li><a href="menu.html" class="text-gray-300 hover:text-white transition">Menu</a></li>
-                    <li><a href="gelato.html" class="text-gray-300 hover:text-white transition">Gelato</a></li>
-                    <li><a href="about.html" class="text-gray-300 hover:text-white transition">About Us</a></li>
-                    <li><a href="memorabilia.html" class="text-gray-300 hover:text-white transition">Memorabilia</a></li>
-                </ul>
-            </div>
-
-            <!-- Contact Info -->
-            <div>
-                <h3 class="font-playfair text-xl font-bold mb-4">Contact</h3>
-                <p class="text-gray-300 text-sm mb-2">
-                    <strong>Address:</strong> 123 Main Street, Your City
-                </p>
-                <p class="text-gray-300 text-sm mb-2">
-                    <strong>Phone:</strong> (123) 456-7890
-                </p>
-                <p class="text-gray-300 text-sm">
-                    <strong>Email:</strong> info@junctioncafe.com
-                </p>
-            </div>
-        </div>
-
-        <!-- Divider -->
-        <div class="border-t border-gray-700 pt-8">
-            <div class="flex flex-col md:flex-row justify-between items-center">
-                <p class="text-gray-400 text-sm">
-                    &copy; 2025 Junction Cafe. All rights reserved.
-                </p>
-                <div class="flex space-x-6 mt-4 md:mt-0">
-                    <a href="#" class="text-gray-400 hover:text-white text-sm transition">Privacy Policy</a>
-                    <a href="#" class="text-gray-400 hover:text-white text-sm transition">Terms of Service</a>
+            <!-- Divider -->
+            <div class="border-t border-gray-700 pt-8">
+                <div class="flex flex-col md:flex-row justify-between items-center">
+                    <p class="text-gray-400 text-sm">&copy; 2025 Junction Cafe. All rights reserved.</p>
+                    <div class="flex space-x-6 mt-4 md:mt-0">
+                        <a href="#" class="text-gray-400 hover:text-white text-sm transition">Privacy Policy</a>
+                        <a href="#" class="text-gray-400 hover:text-white text-sm transition">Terms of Service</a>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-</footer>
-
+    </footer>
 
     <!-- JavaScript for Mobile Menu Toggle -->
     <script>
-        // Mobile menu toggle
         const mobileMenuButton = document.getElementById('mobile-menu-button');
         const mobileMenu = document.getElementById('mobile-menu');
-
-        mobileMenuButton.addEventListener('click', () => {
+        mobileMenuButton.addEventListener('click', (e) => {
+            e.stopPropagation();
             mobileMenu.classList.toggle('hidden');
         });
-
-        // Close mobile menu when clicking outside
+        // Close menu on outside click or route change
         document.addEventListener('click', (event) => {
-            const isClickInside = mobileMenuButton.contains(event.target) || mobileMenu.contains(event.target);
-            if (!isClickInside && !mobileMenu.classList.contains('hidden')) {
-                mobileMenu.classList.add('hidden');
+            if (!mobileMenu.classList.contains('hidden')) {
+                const isClickInside = mobileMenuButton.contains(event.target) || mobileMenu.contains(event.target);
+                if (!isClickInside) {
+                    mobileMenu.classList.add('hidden');
+                }
             }
+        });
+        // Close on nav link click (on mobile)
+        Array.from(document.querySelectorAll('#mobile-menu a')).forEach(link => {
+            link.addEventListener('click', () => mobileMenu.classList.add('hidden'));
         });
     </script>
 </body>
