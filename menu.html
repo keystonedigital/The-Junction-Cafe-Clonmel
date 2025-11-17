@@ -1,0 +1,768 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Explore our restaurant menu at Junction Cafe">
+<title>Junction Cafe - Restaurant Menu</title>
+<!-- Tailwind CSS CDN -->
+<script src="https://cdn.tailwindcss.com"></script>
+<!-- Google Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Great+Vibes:wght@400&family=Allura:wght@400&family=Satisfy:wght@400&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+<style>
+/* SVG Filters for Parchment Effect */
+svg {
+position: fixed;
+top: 0;
+left: 0;
+width: 0;
+height: 0;
+}
+/* Custom CSS Variables */
+:root {
+--parchment-light: #F5F1E8;
+--parchment-mid: #ECDCC8;
+--parchment-dark: #E0CDB3;
+--parchment-darker: #D4C4A0;
+--primary-black: #2C2C2C;
+--gray-accent: #333333;
+}
+/* Custom Font Classes */
+.font-playfair {
+font-family: 'Playfair Display', serif;
+}
+.font-inter {
+font-family: 'Inter', sans-serif;
+}
+.font-great-vibes {
+font-family: 'Great Vibes', cursive;
+}
+.font-allura {
+font-family: 'Allura', cursive;
+}
+.font-satisfy {
+font-family: 'Satisfy', cursive;
+}
+/* Vintage Parchment Background Effect */
+body {
+background: linear-gradient(135deg,
+#FAF8F3 0%,
+#F5F0E8 20%,
+#F0E8DB 40%,
+#E8DFD2 60%,
+#E5D8C3 80%,
+#F5F0E8 100%);
+position: relative;
+min-height: 100vh;
+overflow-x: hidden;
+background-attachment: fixed;
+}
+/* Primary texture layer - paper grain */
+body::before {
+content: '';
+position: fixed;
+top: 0;
+left: 0;
+width: 100%;
+height: 100%;
+background-image: 
+url('data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22400%22 height=%22400%22%3E%3Cfilter id=%22noise%22%3E%3CfeTurbulence type=%22fractalNoise%22 baseFrequency=%220.9%22 numOctaves=%226%22 result=%22noise%22 seed=%221%22 /%3E%3C/filter%3E%3Crect width=%22100%25%22 height=%22100%25%22 fill=%22%23D4C4A0%22 opacity=%220.08%22 filter=%22url(%23noise)%22 /%3E%3C/svg%3E'),
+repeating-linear-gradient(
+90deg,
+transparent,
+transparent 2px,
+rgba(139, 119, 101, 0.015) 2px,
+rgba(139, 119, 101, 0.015) 4px
+),
+repeating-linear-gradient(
+0deg,
+transparent,
+transparent 1px,
+rgba(139, 119, 101, 0.01) 1px,
+rgba(139, 119, 101, 0.01) 2px
+);
+background-size: 400px 400px, 100% 100%, 100% 100%;
+pointer-events: none;
+z-index: 1;
+mix-blend-mode: multiply;
+}
+/* Secondary texture layer - aged spots and stains */
+body::after {
+content: '';
+position: fixed;
+top: 0;
+left: 0;
+width: 100%;
+height: 100%;
+background-image: 
+radial-gradient(ellipse at 15% 25%, rgba(210, 195, 170, 0.12) 0%, transparent 40%),
+radial-gradient(ellipse at 85% 75%, rgba(194, 178, 128, 0.1) 0%, transparent 45%),
+radial-gradient(ellipse at 50% 50%, rgba(179, 157, 119, 0.08) 0%, transparent 50%),
+radial-gradient(ellipse at 20% 80%, rgba(200, 185, 160, 0.09) 0%, transparent 35%),
+radial-gradient(ellipse at 75% 20%, rgba(215, 200, 175, 0.07) 0%, transparent 42%);
+pointer-events: none;
+z-index: 1;
+mix-blend-mode: overlay;
+}
+/* Content wrapper to stay above texture */
+.content-wrapper {
+position: relative;
+z-index: 2;
+}
+/* Navigation styles with parchment background */
+nav {
+background: linear-gradient(to bottom,
+rgba(224, 205, 179, 0.98),
+rgba(236, 220, 200, 0.95));
+backdrop-filter: blur(8px);
+box-shadow: 0 4px 6px rgba(0, 0, 0, 0.08);
+}
+/* Navigation Underline Effect */
+.nav-link {
+position: relative;
+transition: color 0.3s ease;
+color: var(--gray-accent);
+font-weight: 500;
+}
+.nav-link::after {
+content: '';
+position: absolute;
+width: 0;
+height: 2px;
+bottom: -5px;
+left: 0;
+background: linear-gradient(to right, #8B1A1A, #A82A2A);
+transition: width 0.3s ease;
+}
+.nav-link:hover::after,
+.nav-link.active::after {
+width: 100%;
+}
+/* Logo Container Styling */
+.logo-container {
+position: relative;
+width: 180px;
+height: 180px;
+margin: 60px auto 0;
+cursor: pointer;
+transition: transform 0.3s ease;
+filter: drop-shadow(0 8px 16px rgba(0, 0, 0, 0.15));
+}
+.logo-container:hover {
+transform: scale(1.08);
+}
+.logo-circle {
+width: 100%;
+height: 100%;
+border-radius: 50%;
+background: linear-gradient(135deg, #8B1A1A 0%, #A82A2A 50%, #8B1A1A 100%);
+border: 10px solid #5A0F0F;
+display: flex;
+align-items: center;
+justify-content: center;
+box-shadow: inset 0 4px 8px rgba(0, 0, 0, 0.3), 0 8px 20px rgba(0, 0, 0, 0.25);
+position: relative;
+}
+.logo-circle::before {
+content: '';
+position: absolute;
+inset: 0;
+border-radius: 50%;
+background: radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.1), transparent);
+pointer-events: none;
+}
+.logo-text {
+text-align: center;
+z-index: 1;
+text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
+/* Arrow and Text Container */
+.pointer-section {
+position: relative;
+height: 100px;
+display: flex;
+flex-direction: column;
+align-items: center;
+justify-content: center;
+margin-bottom: 20px;
+}
+/* Click to Open Text */
+.click-to-open {
+font-family: 'Allura', cursive;
+font-size: 24px;
+color: var(--gray-accent);
+text-align: center;
+font-weight: 400;
+letter-spacing: 1px;
+margin-bottom: 15px;
+animation: fadeInDown 1s ease-out;
+}
+@keyframes fadeInDown {
+from {
+opacity: 0;
+transform: translateY(-20px);
+}
+to {
+opacity: 1;
+transform: translateY(0);
+}
+}
+/* Arrow SVG Animation */
+.arrow-pointer {
+width: 70px;
+height: 70px;
+animation: arrowBounce 2.5s ease-in-out infinite;
+}
+@keyframes arrowBounce {
+0%, 100% {
+transform: translateY(0) opacity(0.8);
+}
+50% {
+transform: translateY(15px);
+opacity: 1;
+}
+}
+/* Modal Overlay */
+.modal-overlay {
+display: none;
+position: fixed;
+top: 0;
+left: 0;
+width: 100%;
+height: 100%;
+background-color: rgba(0, 0, 0, 0.7);
+z-index: 1000;
+opacity: 0;
+transition: opacity 0.3s ease;
+backdrop-filter: blur(2px);
+}
+.modal-overlay.active {
+display: flex;
+opacity: 1;
+}
+/* Modal Content */
+.modal-content {
+position: relative;
+background: linear-gradient(135deg, #FFFBF5 0%, #F5F1E8 100%);
+width: 90%;
+max-width: 900px;
+max-height: 85vh;
+margin: auto;
+border-radius: 12px;
+box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.5);
+transform: scale(0.7);
+opacity: 0;
+transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+overflow: hidden;
+border: 2px solid rgba(139, 26, 26, 0.2);
+}
+.modal-overlay.active .modal-content {
+transform: scale(1);
+opacity: 1;
+}
+/* Close Button */
+.close-btn {
+position: absolute;
+top: 15px;
+right: 15px;
+width: 40px;
+height: 40px;
+background: linear-gradient(135deg, #8B1A1A, #A82A2A);
+border: none;
+border-radius: 50%;
+color: white;
+font-size: 28px;
+cursor: pointer;
+display: flex;
+align-items: center;
+justify-content: center;
+transition: all 0.3s ease;
+z-index: 10;
+box-shadow: 0 4px 12px rgba(139, 26, 26, 0.3);
+}
+.close-btn:hover {
+background: #5A0F0F;
+transform: rotate(90deg) scale(1.1);
+}
+/* Category Tabs */
+.category-tabs {
+display: flex;
+justify-content: center;
+gap: 10px;
+padding: 20px;
+background: linear-gradient(to bottom,
+rgba(224, 205, 179, 0.3),
+transparent);
+border-bottom: 2px solid rgba(139, 26, 26, 0.2);
+flex-wrap: wrap;
+}
+.category-tab {
+padding: 12px 24px;
+background: transparent;
+border: 2px solid rgba(139, 26, 26, 0.3);
+border-radius: 25px;
+cursor: pointer;
+font-family: 'Playfair Display', serif;
+font-size: 16px;
+font-weight: 600;
+color: var(--gray-accent);
+transition: all 0.3s ease;
+}
+.category-tab:hover {
+background: rgba(224, 205, 179, 0.5);
+transform: translateY(-2px);
+border-color: rgba(139, 26, 26, 0.5);
+}
+.category-tab.active {
+background: linear-gradient(135deg, #8B1A1A, #A82A2A);
+color: white;
+border-color: #8B1A1A;
+box-shadow: 0 4px 12px rgba(139, 26, 26, 0.3);
+}
+/* Menu Content Area */
+.menu-content-area {
+padding: 30px;
+overflow-y: auto;
+max-height: calc(85vh - 180px);
+}
+.category-content {
+display: none;
+}
+.category-content.active {
+display: block;
+animation: fadeIn 0.5s ease;
+}
+@keyframes fadeIn {
+from {
+opacity: 0;
+transform: translateY(10px);
+}
+to {
+opacity: 1;
+transform: translateY(0);
+}
+}
+/* Menu Item Styling */
+.menu-item {
+display: flex;
+justify-content: space-between;
+align-items: flex-start;
+padding: 22px 0;
+border-bottom: 1px solid rgba(139, 26, 26, 0.15);
+}
+.menu-item:last-child {
+border-bottom: none;
+}
+.menu-item-info h3 {
+font-family: 'Great Vibes', cursive;
+font-size: 26px;
+font-weight: 400;
+color: #8B1A1A;
+margin-bottom: 6px;
+letter-spacing: 0.5px;
+}
+.menu-item-info p {
+font-family: 'Inter', sans-serif;
+font-size: 14px;
+color: #666;
+line-height: 1.7;
+font-weight: 300;
+}
+.menu-item-price {
+font-family: 'Playfair Display', serif;
+font-size: 18px;
+font-weight: 700;
+color: #8B1A1A;
+white-space: nowrap;
+margin-left: 20px;
+}
+/* Category Title */
+.category-title {
+font-family: 'Great Vibes', cursive;
+font-size: 42px;
+font-weight: 400;
+color: #8B1A1A;
+text-align: center;
+margin-bottom: 30px;
+letter-spacing: 1px;
+}
+/* Smooth Scroll */
+html {
+scroll-behavior: smooth;
+}
+/* Mobile adjustments */
+@media (max-width: 768px) {
+.logo-container {
+width: 140px;
+height: 140px;
+margin: 40px auto 0;
+}
+.click-to-open {
+font-size: 18px;
+}
+.arrow-pointer {
+width: 50px;
+height: 50px;
+}
+.category-tabs {
+padding: 15px;
+}
+.category-tab {
+padding: 10px 18px;
+font-size: 14px;
+}
+.menu-content-area {
+padding: 20px;
+}
+.menu-item-info h3 {
+font-size: 22px;
+}
+.menu-item-price {
+font-size: 16px;
+}
+.category-title {
+font-size: 32px;
+}
+.pointer-section {
+height: 80px;
+margin-bottom: 10px;
+}
+}
+</style>
+</head>
+<body class="font-inter text-black">
+<!-- SVG Filters Container -->
+<svg xmlns="http://www.w3.org/2000/svg">
+<filter id="parchment-filter">
+<feTurbulence type="fractalNoise" baseFrequency="0.03" numOctaves="4" result="noise" />
+</filter>
+</svg>
+<div class="content-wrapper">
+<!-- Navigation Bar -->
+<nav class="fixed w-full z-50 shadow-md">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+<div class="flex justify-between items-center h-20">
+<!-- Logo -->
+                <div class="flex-shrink-0">
+                    <a href="index.html">
+                        <img src="images/junctionLogo2.png" alt="Junction Cafe Logo" class="h-24 w-auto ml-20" />
+                    </a>
+                </div>
+                <div class="flex-shrink-0">
+                    <a href="index.html">
+                        <img src="images/the_beatles-removebg-preview.png" alt="Junction Cafe Logo" class="h-10 w-auto ml-20" />
+                    </a>
+                </div>
+<!-- Desktop Navigation -->
+<div class="hidden md:flex space-x-8">
+<a href="index.html" class="nav-link">Home</a>
+<a href="menu.html" class="nav-link active">Menu</a>
+<a href="gelato.html" class="nav-link">Gelato</a>
+<a href="about.html" class="nav-link">About</a>
+<a href="gallery.html" class="nav-link">Gallery</a>
+<a href="reviews.html" class="nav-link">Reviews</a>
+<a href="memorabilia.html" class="nav-link">Memorabilia</a>
+<a href="contact.html" class="nav-link">Contact Us</a>
+</div>
+<!-- Mobile Menu Button -->
+<div class="md:hidden">
+<button id="mobile-menu-button" class="focus:outline-none focus:ring-2 focus:ring-gray-600" aria-label="Toggle menu" style="color: var(--gray-accent);">
+<svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+</svg>
+</button>
+</div>
+</div>
+</div>
+<!-- Mobile Navigation Menu -->
+<div id="mobile-menu" class="hidden md:hidden" style="background: rgba(224, 205, 179, 0.95);">
+<div class="px-2 pt-2 pb-3 space-y-1">
+<a href="index.html" class="block px-3 py-2 hover:bg-gray-300 rounded" style="color: var(--gray-accent);">Home</a>
+<a href="menu.html" class="block px-3 py-2 hover:bg-gray-300 rounded" style="color: var(--gray-accent);">Menu</a>
+<a href="gelato.html" class="block px-3 py-2 hover:bg-gray-300 rounded" style="color: var(--gray-accent);">Gelato</a>
+<a href="about.html" class="block px-3 py-2 hover:bg-gray-300 rounded" style="color: var(--gray-accent);">About</a>
+</div>
+</div>
+</nav>
+<!-- Main Content -->
+<main class="pt-20">
+<section class="min-h-screen flex items-center justify-center px-4 py-16">
+<div class="text-center w-full max-w-2xl">
+<!-- Click to Open Pointer Section -->
+<div class="pointer-section">
+<div class="click-to-open">Click to open menu</div>
+<svg class="arrow-pointer mx-auto" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<style>
+.arrow-line {
+stroke: #333333;
+stroke-width: 3;
+fill: none;
+stroke-linecap: round;
+stroke-linejoin: round;
+}
+.arrow-head {
+fill: #333333;
+}
+</style>
+</defs>
+<!-- Curved arrow line -->
+<path class="arrow-line" d="M 50 10 Q 50 50, 50 70" />
+<!-- Arrow head -->
+<polygon class="arrow-head" points="50,80 45,68 50,72 55,68" />
+</svg>
+</div>
+<div class="logo-container" id="menu-logo">
+  <img src="images/junctionLogo1.png"
+       alt="Junction Cafe Logo"
+       class="logo-img object-cover rounded-full w-full h-full border-[10px] border-[#5A0F0F] shadow-lg" />
+</div>
+
+</div>
+</section>
+</main>
+</div>
+<!-- Modal Overlay -->
+<div class="modal-overlay" id="menuModal">
+<div class="modal-content">
+<!-- Close Button -->
+<button class="close-btn" id="closeModal" aria-label="Close menu">
+<span>&times;</span>
+</button>
+<!-- Category Tabs -->
+<div class="category-tabs">
+<button class="category-tab active" data-category="breakfast">Breakfast</button>
+<button class="category-tab" data-category="lunch">Lunch</button>
+<button class="category-tab" data-category="dinner">Dinner</button>
+<button class="category-tab" data-category="drinks">Drinks</button>
+</div>
+<!-- Menu Content Area -->
+<div class="menu-content-area">
+<!-- Breakfast Menu -->
+<div class="category-content active" data-content="breakfast">
+<h2 class="category-title">Breakfast</h2>
+<div class="menu-item">
+<div class="menu-item-info">
+<h3>Classic Eggs Benedict</h3>
+<p>Poached eggs, Canadian bacon, hollandaise sauce on English muffin</p>
+</div>
+<div class="menu-item-price">$14.99</div>
+</div>
+<div class="menu-item">
+<div class="menu-item-info">
+<h3>Buttermilk Pancakes</h3>
+<p>Fluffy pancakes served with maple syrup and fresh berries</p>
+</div>
+<div class="menu-item-price">$11.99</div>
+</div>
+<div class="menu-item">
+<div class="menu-item-info">
+<h3>Avocado Toast</h3>
+<p>Smashed avocado, poached eggs, feta cheese on sourdough</p>
+</div>
+<div class="menu-item-price">$13.49</div>
+</div>
+<div class="menu-item">
+<div class="menu-item-info">
+<h3>Belgian Waffle</h3>
+<p>Crispy waffle with whipped cream and seasonal fruit</p>
+</div>
+<div class="menu-item-price">$12.99</div>
+</div>
+<div class="menu-item">
+<div class="menu-item-info">
+<h3>Breakfast Burrito</h3>
+<p>Scrambled eggs, cheese, peppers, onions, salsa, sour cream</p>
+</div>
+<div class="menu-item-price">$10.99</div>
+</div>
+</div>
+<!-- Lunch Menu -->
+<div class="category-content" data-content="lunch">
+<h2 class="category-title">Lunch</h2>
+<div class="menu-item">
+<div class="menu-item-info">
+<h3>Grilled Chicken Caesar Salad</h3>
+<p>Romaine lettuce, parmesan, croutons, Caesar dressing</p>
+</div>
+<div class="menu-item-price">$15.99</div>
+</div>
+<div class="menu-item">
+<div class="menu-item-info">
+<h3>Junction Club Sandwich</h3>
+<p>Turkey, bacon, lettuce, tomato, mayo on toasted bread</p>
+</div>
+<div class="menu-item-price">$13.99</div>
+</div>
+<div class="menu-item">
+<div class="menu-item-info">
+<h3>Margherita Flatbread</h3>
+<p>Fresh mozzarella, tomatoes, basil, balsamic glaze</p>
+</div>
+<div class="menu-item-price">$14.49</div>
+</div>
+<div class="menu-item">
+<div class="menu-item-info">
+<h3>Pulled Pork Sandwich</h3>
+<p>Slow-cooked pork, coleslaw, BBQ sauce on brioche bun</p>
+</div>
+<div class="menu-item-price">$16.99</div>
+</div>
+<div class="menu-item">
+<div class="menu-item-info">
+<h3>Quinoa Power Bowl</h3>
+<p>Quinoa, roasted vegetables, chickpeas, tahini dressing</p>
+</div>
+<div class="menu-item-price">$14.99</div>
+</div>
+</div>
+<!-- Dinner Menu -->
+<div class="category-content" data-content="dinner">
+<h2 class="category-title">Dinner</h2>
+<div class="menu-item">
+<div class="menu-item-info">
+<h3>Grilled Salmon</h3>
+<p>Atlantic salmon, lemon butter sauce, seasonal vegetables, rice pilaf</p>
+</div>
+<div class="menu-item-price">$24.99</div>
+</div>
+<div class="menu-item">
+<div class="menu-item-info">
+<h3>Ribeye Steak</h3>
+<p>12oz ribeye, garlic mashed potatoes, grilled asparagus</p>
+</div>
+<div class="menu-item-price">$32.99</div>
+</div>
+<div class="menu-item">
+<div class="menu-item-info">
+<h3>Chicken Parmesan</h3>
+<p>Breaded chicken breast, marinara, mozzarella, spaghetti</p>
+</div>
+<div class="menu-item-price">$21.99</div>
+</div>
+<div class="menu-item">
+<div class="menu-item-info">
+<h3>Vegetable Risotto</h3>
+<p>Creamy arborio rice with seasonal vegetables and parmesan</p>
+</div>
+<div class="menu-item-price">$19.99</div>
+</div>
+<div class="menu-item">
+<div class="menu-item-info">
+<h3>Lamb Chops</h3>
+<p>Herb-crusted lamb chops, roasted potatoes, mint chimichurri</p>
+</div>
+<div class="menu-item-price">$28.99</div>
+</div>
+</div>
+<!-- Drinks Menu -->
+<div class="category-content" data-content="drinks">
+<h2 class="category-title">Drinks</h2>
+<div class="menu-item">
+<div class="menu-item-info">
+<h3>Freshly Brewed Coffee</h3>
+<p>Premium blend, regular or decaf</p>
+</div>
+<div class="menu-item-price">$3.99</div>
+</div>
+<div class="menu-item">
+<div class="menu-item-info">
+<h3>Cappuccino</h3>
+<p>Espresso with steamed milk and foam</p>
+</div>
+<div class="menu-item-price">$4.99</div>
+</div>
+<div class="menu-item">
+<div class="menu-item-info">
+<h3>Fresh Squeezed Orange Juice</h3>
+<p>Made to order from Valencia oranges</p>
+</div>
+<div class="menu-item-price">$5.49</div>
+</div>
+<div class="menu-item">
+<div class="menu-item-info">
+<h3>Iced Tea</h3>
+<p>Sweetened or unsweetened, choice of lemon</p>
+</div>
+<div class="menu-item-price">$3.49</div>
+</div>
+<div class="menu-item">
+<div class="menu-item-info">
+<h3>Craft Beer Selection</h3>
+<p>Ask your server for today's featured local brews</p>
+</div>
+<div class="menu-item-price">$6.99</div>
+</div>
+<div class="menu-item">
+<div class="menu-item-info">
+<h3>House Wine</h3>
+<p>Red or white, by the glass</p>
+</div>
+<div class="menu-item-price">$8.99</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- JavaScript -->
+<script>
+// Mobile menu toggle
+const mobileMenuButton = document.getElementById('mobile-menu-button');
+const mobileMenu = document.getElementById('mobile-menu');
+mobileMenuButton.addEventListener('click', () => {
+mobileMenu.classList.toggle('hidden');
+});
+// Close mobile menu when clicking outside
+document.addEventListener('click', (event) => {
+const isClickInside = mobileMenuButton.contains(event.target) || mobileMenu.contains(event.target);
+if (!isClickInside && !mobileMenu.classList.contains('hidden')) {
+mobileMenu.classList.add('hidden');
+}
+});
+// Modal functionality
+const menuLogo = document.getElementById('menu-logo');
+const menuModal = document.getElementById('menuModal');
+const closeModal = document.getElementById('closeModal');
+// Open modal when logo is clicked
+menuLogo.addEventListener('click', () => {
+menuModal.classList.add('active');
+document.body.style.overflow = 'hidden';
+});
+// Close modal when close button is clicked
+closeModal.addEventListener('click', () => {
+menuModal.classList.remove('active');
+document.body.style.overflow = '';
+});
+// Close modal when clicking outside the modal content
+menuModal.addEventListener('click', (event) => {
+if (event.target === menuModal) {
+menuModal.classList.remove('active');
+document.body.style.overflow = '';
+}
+});
+// Close modal with Escape key
+document.addEventListener('keydown', (event) => {
+if (event.key === 'Escape' && menuModal.classList.contains('active')) {
+menuModal.classList.remove('active');
+document.body.style.overflow = '';
+}
+});
+// Category tab functionality
+const categoryTabs = document.querySelectorAll('.category-tab');
+const categoryContents = document.querySelectorAll('.category-content');
+categoryTabs.forEach(tab => {
+tab.addEventListener('click', () => {
+const category = tab.getAttribute('data-category');
+categoryTabs.forEach(t => t.classList.remove('active'));
+categoryContents.forEach(c => c.classList.remove('active'));
+tab.classList.add('active');
+document.querySelector(`[data-content="${category}"]`).classList.add('active');
+document.querySelector('.menu-content-area').scrollTop = 0;
+});
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,283 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Visit Junction Cafe - Find our location, hours, and contact information">
+    <title>Junction Cafe - Visit Us</title>
+
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+
+    <style>
+        /* Custom CSS Variables */
+        :root {
+            --primary-black: #000000;
+            --primary-white: #FFFFFF;
+            --gray-accent: #333333;
+        }
+
+
+        /* Custom Font Classes */
+        .font-playfair {
+            font-family: 'Playfair Display', serif;
+        }
+
+        .font-inter {
+            font-family: 'Inter', sans-serif;
+        }
+
+        /* Navigation Underline Effect */
+        .nav-link {
+            position: relative;
+            transition: color 0.3s ease;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -5px;
+            left: 0;
+            background-color: var(--primary-white);
+            transition: width 0.3s ease;
+        }
+
+        .nav-link:hover::after,
+        .nav-link.active::after {
+            width: 100%;
+        }
+
+        /* Contact Section Background */
+        .contact-section {
+            background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(images/IMG_0032.jpg);
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding-top: 80px;
+        }
+
+        /* Contact Card Styling */
+        .contact-card {
+            background-color: #f5f5f5;
+            border-radius: 24px;
+            padding: 3rem 2rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            max-width: 600px;
+            width: 100%;
+        }
+
+        /* Map Container */
+        .map-container {
+            border-radius: 16px;
+            overflow: hidden;
+            margin: 2rem 0;
+            height: 400px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Button Styling */
+        .contact-button {
+            display: inline-block;
+            padding: 0.75rem 2rem;
+            border: 2px solid #333333;
+            color: #333333;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            margin: 0 0.5rem;
+        }
+
+        .contact-button:hover {
+            background-color: #333333;
+            color: #ffffff;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Smooth Scroll */
+        html {
+            scroll-behavior: smooth;
+        }
+    </style>
+</head>
+<body class="font-inter bg-white text-black">
+
+    <!-- Navigation Bar -->
+    <nav class="fixed w-full z-50 bg-black text-white shadow-lg">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <!-- Logo -->
+                <div class="flex-shrink-0">
+                    <a href="index.html">
+                        <img src="images/junctionLogo2.png" alt="Junction Cafe Logo" class="h-24 w-auto ml-20" />
+                    </a>
+                </div>
+
+                <!-- Desktop Navigation -->
+                <div class="hidden md:flex space-x-8">
+                    <a href="index.html" class="nav-link">Home</a>
+                    <a href="menu.html" class="nav-link">Menu</a>
+                    <a href="gelato.html" class="nav-link">Gelato</a>
+                    <a href="about.html" class="nav-link">About</a>
+                    <a href="gallery.html" class="nav-link">Gallery</a>
+                    <a href="reviews.html" class="nav-link">Reviews</a>
+                    <a href="memorabilia.html" class="nav-link">Memorabilia</a>
+                    <a href="contact.html" class="nav-link active">Contact</a>
+                </div>
+
+                <!-- Mobile Menu Button -->
+                <div class="md:hidden">
+                    <button id="mobile-menu-button" class="text-white focus:outline-none focus:ring-2 focus:ring-white" aria-label="Toggle menu">
+                        <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Navigation Menu -->
+        <div id="mobile-menu" class="hidden md:hidden bg-black">
+            <div class="px-2 pt-2 pb-3 space-y-1">
+                <a href="index.html" class="block px-3 py-2 text-white hover:bg-gray-800 rounded">Home</a>
+                <a href="menu.html" class="block px-3 py-2 text-white hover:bg-gray-800 rounded">Menu</a>
+                <a href="gelato.html" class="block px-3 py-2 text-white hover:bg-gray-800 rounded">Gelato</a>
+                <a href="about.html" class="block px-3 py-2 text-white hover:bg-gray-800 rounded">About</a>
+                <a href="reviews.html" class="block px-3 py-2 text-white hover:bg-gray-800 rounded">Reviews</a>
+                <a href="contact.html" class="block px-3 py-2 text-white hover:bg-gray-800 rounded">Contact</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Contact Section -->
+    <main>
+        <section class="contact-section">
+            <div class="px-4 sm:px-6 lg:px-8">
+                <!-- Contact Card -->
+                <div class="contact-card">
+                    <h1 class="font-playfair text-4xl md:text-5xl font-bold text-center mb-8">Visit Us</h1>
+                    
+                    <!-- Address -->
+                    <div class="text-center mb-8">
+                        <p class="text-lg font-semibold">51 Parnell Street</p>
+                        <p class="text-lg">Clonmel E91 N9UO</p>
+                        <p class="text-lg">Ireland</p>
+                    </div>
+
+                    <!-- Google Maps Embed -->
+                    <div class="map-container">
+                        <iframe 
+                            width="100%" 
+                            height="100%" 
+                            style="border:0;" 
+                            allowfullscreen="" 
+                            loading="lazy" 
+                            referrerpolicy="no-referrer-when-downgrade"
+                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3009.8365839283356!2d-7.499084!3d52.36234!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x48405a9e9d9d9d9d%3A0x1c0d0d0d0d0d0d0d!2s51%20Parnell%20Street%2C%20Clonmel%2C%20E91%20N9UO!5e0!3m2!1sen!2sie!4v1234567890">
+                        </iframe>
+                    </div>
+
+                    <!-- Hours -->
+                    <div class="text-center mb-8 space-y-2">
+                        <p class="text-base"><span class="font-semibold">Monday - Thursday:</span> 9:00 - 18:00</p>
+                        <p class="text-base"><span class="font-semibold">Friday:</span> 9:00 - 00:00</p>
+                        <p class="text-base"><span class="font-semibold">Saturday:</span> 9:00 - 18:00</p>
+                        <p class="text-base"><span class="font-semibold">Sunday:</span> 10:00 - 18:00</p>
+                    </div>
+
+                    <!-- Action Buttons -->
+                    <div class="text-center">
+                        <a href="https://www.google.com/maps/search/?api=1&query=51+Parnell+Street+Clonmel+E91+N9UO+Ireland" target="_blank" class="contact-button">Get Directions</a>
+                        <a href="tel:+353000000000" class="contact-button">Call Now</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+<footer class="bg-black text-white py-12">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
+            <!-- About Section -->
+            <div>
+                <h3 class="font-playfair text-xl font-bold mb-4">Junction Cafe</h3>
+                <p class="text-gray-300 text-sm leading-relaxed">
+                    Where exceptional dining meets artisanal gelato in perfect harmony. Experience the finest flavors and warmest hospitality.
+                </p>
+            </div>
+
+            <!-- Quick Links -->
+            <div>
+                <h3 class="font-playfair text-xl font-bold mb-4">Quick Links</h3>
+                <ul class="space-y-2 text-sm">
+                    <li><a href="menu.html" class="text-gray-300 hover:text-white transition">Menu</a></li>
+                    <li><a href="gelato.html" class="text-gray-300 hover:text-white transition">Gelato</a></li>
+                    <li><a href="about.html" class="text-gray-300 hover:text-white transition">About Us</a></li>
+                    <li><a href="memorabilia.html" class="text-gray-300 hover:text-white transition">Memorabilia</a></li>
+                </ul>
+            </div>
+
+            <!-- Contact Info -->
+            <div>
+                <h3 class="font-playfair text-xl font-bold mb-4">Contact</h3>
+                <p class="text-gray-300 text-sm mb-2">
+                    <strong>Address:</strong> 123 Main Street, Your City
+                </p>
+                <p class="text-gray-300 text-sm mb-2">
+                    <strong>Phone:</strong> (123) 456-7890
+                </p>
+                <p class="text-gray-300 text-sm">
+                    <strong>Email:</strong> info@junctioncafe.com
+                </p>
+            </div>
+        </div>
+
+        <!-- Divider -->
+        <div class="border-t border-gray-700 pt-8">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <p class="text-gray-400 text-sm">
+                    &copy; 2025 Junction Cafe. All rights reserved.
+                </p>
+                <div class="flex space-x-6 mt-4 md:mt-0">
+                    <a href="#" class="text-gray-400 hover:text-white text-sm transition">Privacy Policy</a>
+                    <a href="#" class="text-gray-400 hover:text-white text-sm transition">Terms of Service</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+
+    <!-- JavaScript for Mobile Menu Toggle -->
+    <script>
+        // Mobile menu toggle
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        mobileMenuButton.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        // Close mobile menu when clicking outside
+        document.addEventListener('click', (event) => {
+            const isClickInside = mobileMenuButton.contains(event.target) || mobileMenu.contains(event.target);
+            if (!isClickInside && !mobileMenu.classList.contains('hidden')) {
+                mobileMenu.classList.add('hidden');
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,745 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Read and leave reviews for Junction Cafe">
+    <title>Junction Cafe - Reviews</title>
+
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+
+    <style>
+        /* Custom CSS Variables */
+        :root {
+            --primary-black: #000000;
+            --primary-white: #FFFFFF;
+            --gray-accent: #333333;
+            --accent-gold: #D4A574;
+            --light-cream: #e8d7ce;
+        }
+
+        /* Custom Font Classes */
+        .font-playfair {
+            font-family: 'Playfair Display', serif;
+        }
+
+        .font-inter {
+            font-family: 'Inter', sans-serif;
+        }
+
+        /* Navigation Underline Effect */
+        .nav-link {
+            position: relative;
+            transition: color 0.3s ease;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -5px;
+            left: 0;
+            background-color: var(--primary-white);
+            transition: width 0.3s ease;
+        }
+
+        .nav-link:hover::after,
+        .nav-link.active::after {
+            width: 100%;
+        }
+
+        /* Reviews Section Background */
+        .reviews-section {
+            background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(images/IMG_9907.jpg);
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            min-height: 100vh;
+            padding-top: 80px;
+            padding-bottom: 60px;
+        }
+
+        /* Page Header */
+        .page-header {
+            text-align: center;
+            margin-bottom: 3rem;
+            animation: fadeInDown 0.8s ease-out;
+            color: white;
+        }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Star Rating */
+        .star {
+            color: #ccc;
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: inline-block;
+        }
+
+        .star.active,
+        .star.filled {
+            color: #ffc107;
+            text-shadow: 0 0 5px rgba(255, 193, 7, 0.3);
+        }
+
+        .star:hover {
+            transform: scale(1.15);
+        }
+
+        /* Review Card */
+        .review-card {
+            background-color: rgba(255, 255, 255, 0.75);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s ease;
+            border-left: 4px solid var(--primary-black);
+            animation: fadeInUp 0.6s ease-out;
+            backdrop-filter: blur(3px);
+            -webkit-backdrop-filter: blur(3px);
+        }
+
+        .review-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
+        }
+
+        .review-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: start;
+            margin-bottom: 0.75rem;
+        }
+
+        .review-author {
+            font-weight: 700;
+            color: #1a1a1a;
+            font-size: 1.05rem;
+        }
+
+        .review-timestamp {
+            font-size: 0.8rem;
+            color: #999;
+            font-style: italic;
+        }
+
+        .review-text {
+            color: #444;
+            line-height: 1.6;
+            margin-top: 0.75rem;
+        }
+
+        /* Form Container */
+        .form-container {
+            background-color: rgba(255, 255, 255, 0.75);
+            border-radius: 16px;
+            padding: 2.5rem;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+            border-top: 4px solid var(--primary-black);
+            animation: fadeInUp 0.8s ease-out;
+            position: sticky;
+            top: 120px;
+            backdrop-filter: blur(3px);
+            -webkit-backdrop-filter: blur(3px);
+        }
+
+        /* Form Label */
+        .form-label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 0.75rem;
+            color: #1a1a1a;
+            font-size: 0.95rem;
+        }
+
+        /* Form Input */
+        .form-input {
+            width: 100%;
+            padding: 0.85rem;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-family: 'Inter', sans-serif;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            margin-bottom: 1.5rem;
+            background-color: #fafafa;
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: var(--accent-gold);
+            background-color: #ffffff;
+            box-shadow: 0 0 0 3px rgba(212, 165, 116, 0.1);
+        }
+
+        .form-textarea {
+            width: 100%;
+            padding: 0.85rem;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-family: 'Inter', sans-serif;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            margin-bottom: 1.5rem;
+            resize: vertical;
+            min-height: 130px;
+            background-color: #fafafa;
+        }
+
+        .form-textarea:focus {
+            outline: none;
+            border-color: var(--accent-gold);
+            background-color: #ffffff;
+            box-shadow: 0 0 0 3px rgba(212, 165, 116, 0.1);
+        }
+
+        /* Star Rating Container */
+        .rating-container {
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .rating-value {
+            margin-left: auto;
+            font-weight: 600;
+            color: var(--accent-gold);
+            font-size: 0.95rem;
+        }
+
+        /* Button Styling */
+        .submit-button {
+            background: linear-gradient(135deg, #333333 0%, #1a1a1a 100%);
+            color: #ffffff;
+            padding: 1rem 2.5rem;
+            border: none;
+            border-radius: 8px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 1rem;
+            width: 100%;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+        }
+
+        .submit-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
+        }
+
+        .submit-button:active {
+            transform: translateY(0);
+        }
+
+        /* Section Container */
+        .reviews-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1.2fr 1fr;
+            gap: 3rem;
+            animation: fadeInUp 0.8s ease-out 0.1s both;
+        }
+
+        @media (max-width: 1024px) {
+            .reviews-container {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .form-container {
+                position: relative;
+                top: 0;
+            }
+        }
+
+        /* Reviews Column Header */
+        .column-header {
+            margin-bottom: 2rem;
+        }
+
+        .column-title {
+            font-size: 1.75rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            color: white;
+        }
+
+        .column-subtitle {
+            font-size: 1rem;
+            color: white;
+            font-weight: 400;
+        }
+
+        /* Scroll Container */
+        .reviews-scroll {
+            max-height: 800px;
+            overflow-y: auto;
+            padding-right: 0.5rem;
+        }
+
+        .reviews-scroll::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .reviews-scroll::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 10px;
+        }
+
+        .reviews-scroll::-webkit-scrollbar-thumb {
+            background: var(--gray-accent);
+            border-radius: 10px;
+        }
+
+        .reviews-scroll::-webkit-scrollbar-thumb:hover {
+            background: var(--gray-accent);
+        }
+
+        /* Empty State */
+        .empty-state {
+            text-align: center;
+            padding: 2rem;
+            color: #999;
+        }
+
+        .empty-state-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        /* Success Message */
+        .success-message {
+            background-color: #d4edda;
+            color: #155724;
+            padding: 1rem;
+            border-radius: 8px;
+            margin-bottom: 1.5rem;
+            animation: slideDown 0.3s ease-out;
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Smooth Scroll */
+        html {
+            scroll-behavior: smooth;
+        }
+    </style>
+</head>
+<body class="font-inter bg-white text-black">
+
+    <!-- Navigation Bar -->
+    <nav class="fixed w-full z-50 bg-black text-white shadow-lg">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <!-- Logo -->
+                <div class="flex-shrink-0">
+                    <a href="index.html">
+                        <img src="images/junctionLogo2.png" alt="Junction Cafe Logo" class="h-24 w-auto ml-20" />
+                    </a>
+                </div>
+
+                <!-- Desktop Navigation -->
+                <div class="hidden md:flex space-x-8">
+                    <a href="index.html" class="nav-link">Home</a>
+                    <a href="menu.html" class="nav-link">Menu</a>
+                    <a href="gelato.html" class="nav-link">Gelato</a>
+                    <a href="about.html" class="nav-link">About</a>
+                    <a href="gallery.html" class="nav-link">Gallery</a>
+                    <a href="reviews.html" class="nav-link active">Reviews</a>
+                    <a href="memorabilia.html" class="nav-link">Memorabilia</a>
+                    <a href="contact.html" class="nav-link">Contact</a>
+                </div>
+
+                <!-- Mobile Menu Button -->
+                <div class="md:hidden">
+                    <button id="mobile-menu-button" class="text-white focus:outline-none focus:ring-2 focus:ring-white" aria-label="Toggle menu">
+                        <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Navigation Menu -->
+        <div id="mobile-menu" class="hidden md:hidden bg-black">
+            <div class="px-2 pt-2 pb-3 space-y-1">
+                <a href="index.html" class="block px-3 py-2 text-white hover:bg-gray-800 rounded">Home</a>
+                <a href="menu.html" class="block px-3 py-2 text-white hover:bg-gray-800 rounded">Menu</a>
+                <a href="gelato.html" class="block px-3 py-2 text-white hover:bg-gray-800 rounded">Gelato</a>
+                <a href="about.html" class="block px-3 py-2 text-white hover:bg-gray-800 rounded">About</a>
+                <a href="reviews.html" class="block px-3 py-2 text-white hover:bg-gray-800 rounded">Reviews</a>
+                <a href="contact.html" class="block px-3 py-2 text-white hover:bg-gray-800 rounded">Contact</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Reviews Section -->
+    <main>
+        <section class="reviews-section">
+            <div class="px-4 sm:px-6 lg:px-8">
+                <!-- Page Header -->
+                <div class="page-header">
+                    <h1 class="font-playfair text-5xl md:text-6xl font-bold mb-3">Guest Reviews</h1>
+                    <p class="text-lg text-gray-700">Discover what our valued guests think about Junction Cafe</p>
+                </div>
+
+                <div class="reviews-container">
+                    
+                    <!-- Left Column: Existing Reviews -->
+                    <div>
+                        <div class="column-header">
+                            <h2 class="column-title">Customer Reviews</h2>
+                            <p class="column-subtitle">See what our guests have to say!</p>
+                        </div>
+                        
+                        <div class="reviews-scroll">
+                            <div id="google-reviews-container">
+                                <!-- Sample Google Reviews -->
+                                <div class="review-card">
+                                    <div class="review-header">
+                                        <span class="review-author">Siobhan</span>
+                                    </div>
+                                    <div class="flex items-center gap-1 mb-1">
+                                        <span class="star filled">★</span>
+                                        <span class="star filled">★</span>
+                                        <span class="star filled">★</span>
+                                        <span class="star filled">★</span>
+                                        <span class="star filled">★</span>
+                                    </div>
+                                    <p class="review-text">Great gluten-free selection—highly recommend. The staff was incredibly knowledgeable about dietary requirements.</p>
+                                    <p class="review-timestamp">1 week ago</p>
+                                </div>
+
+                                <div class="review-card">
+                                    <div class="review-header">
+                                        <span class="review-author">Tom H.</span>
+                                    </div>
+                                    <div class="flex items-center gap-1 mb-1">
+                                        <span class="star filled">★</span>
+                                        <span class="star filled">★</span>
+                                        <span class="star filled">★</span>
+                                        <span class="star filled">★</span>
+                                        <span class="star filled">★</span>
+                                    </div>
+                                    <p class="review-text">The Harry Potter theme is spot on and staff are super friendly. Loved every minute of our visit!</p>
+                                    <p class="review-timestamp">2 weeks ago</p>
+                                </div>
+
+                                <div class="review-card">
+                                    <div class="review-header">
+                                        <span class="review-author">Emma C.</span>
+                                    </div>
+                                    <div class="flex items-center gap-1 mb-1">
+                                        <span class="star filled">★</span>
+                                        <span class="star filled">★</span>
+                                        <span class="star filled">★</span>
+                                        <span class="star filled">★</span>
+                                        <span class="star filled">★</span>
+                                    </div>
+                                    <p class="review-text">Absolutely magical experience and delicious food! The gelato was heavenly. Will definitely be back.</p>
+                                    <p class="review-timestamp">3 weeks ago</p>
+                                </div>
+
+                                <div class="review-card">
+                                    <div class="review-header">
+                                        <span class="review-author">Michael K.</span>
+                                    </div>
+                                    <div class="flex items-center gap-1 mb-1">
+                                        <span class="star filled">★</span>
+                                        <span class="star filled">★</span>
+                                        <span class="star filled">★</span>
+                                        <span class="star filled">★</span>
+                                    </div>
+                                    <p class="review-text">Fantastic atmosphere and great service. Food was excellent, though the wait time was a bit long on Saturday night.</p>
+                                    <p class="review-timestamp">1 month ago</p>
+                                </div>
+                            </div>
+
+                            <div id="user-reviews-container">
+                                <!-- User submitted reviews will appear here -->
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Right Column: Leave a Review Form -->
+                    <div>
+                        <div id="success-message" class="success-message hidden">
+                            ✓ Your review has been posted successfully!
+                        </div>
+
+                        <div class="form-container">
+                            <h2 class="column-title mb-6">Leave a Review</h2>
+                            
+                            <form id="review-form">
+                                <!-- Name Input -->
+                                <div>
+                                    <label class="form-label">Your Name</label>
+                                    <input type="text" id="name" class="form-input" placeholder="Enter your name" required>
+                                </div>
+
+                                <!-- Rating Input -->
+                                <div>
+                                    <label class="form-label">Rating</label>
+                                    <div class="rating-container">
+                                        <div class="flex gap-1">
+                                            <span class="star" data-rating="1">★</span>
+                                            <span class="star" data-rating="2">★</span>
+                                            <span class="star" data-rating="3">★</span>
+                                            <span class="star" data-rating="4">★</span>
+                                            <span class="star" data-rating="5">★</span>
+                                        </div>
+                                        <span class="rating-value" id="rating-value">Select a rating</span>
+                                    </div>
+                                    <input type="hidden" id="rating" value="0" required>
+                                </div>
+
+                                <!-- Review Text -->
+                                <div>
+                                    <label class="form-label">Your Review</label>
+                                    <textarea id="review-text" class="form-textarea" placeholder="Share your experience at Junction Cafe..." required></textarea>
+                                </div>
+
+                                <!-- Submit Button -->
+                                <button type="submit" class="submit-button">Post Review</button>
+                            </form>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+<footer class="bg-black text-white py-12">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
+            <!-- About Section -->
+            <div>
+                <h3 class="font-playfair text-xl font-bold mb-4">Junction Cafe</h3>
+                <p class="text-gray-300 text-sm leading-relaxed">
+                    Where exceptional dining meets artisanal gelato in perfect harmony. Experience the finest flavors and warmest hospitality.
+                </p>
+            </div>
+
+            <!-- Quick Links -->
+            <div>
+                <h3 class="font-playfair text-xl font-bold mb-4">Quick Links</h3>
+                <ul class="space-y-2 text-sm">
+                    <li><a href="menu.html" class="text-gray-300 hover:text-white transition">Menu</a></li>
+                    <li><a href="gelato.html" class="text-gray-300 hover:text-white transition">Gelato</a></li>
+                    <li><a href="about.html" class="text-gray-300 hover:text-white transition">About Us</a></li>
+                    <li><a href="memorabilia.html" class="text-gray-300 hover:text-white transition">Memorabilia</a></li>
+                </ul>
+            </div>
+
+            <!-- Contact Info -->
+            <div>
+                <h3 class="font-playfair text-xl font-bold mb-4">Contact</h3>
+                <p class="text-gray-300 text-sm mb-2">
+                    <strong>Address:</strong> 123 Main Street, Your City
+                </p>
+                <p class="text-gray-300 text-sm mb-2">
+                    <strong>Phone:</strong> (123) 456-7890
+                </p>
+                <p class="text-gray-300 text-sm">
+                    <strong>Email:</strong> info@junctioncafe.com
+                </p>
+            </div>
+        </div>
+
+        <!-- Divider -->
+        <div class="border-t border-gray-700 pt-8">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <p class="text-gray-400 text-sm">
+                    &copy; 2025 Junction Cafe. All rights reserved.
+                </p>
+                <div class="flex space-x-6 mt-4 md:mt-0">
+                    <a href="#" class="text-gray-400 hover:text-white text-sm transition">Privacy Policy</a>
+                    <a href="#" class="text-gray-400 hover:text-white text-sm transition">Terms of Service</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+
+    <!-- JavaScript -->
+    <script>
+        // Mobile menu toggle
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        mobileMenuButton.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        document.addEventListener('click', (event) => {
+            const isClickInside = mobileMenuButton.contains(event.target) || mobileMenu.contains(event.target);
+            if (!isClickInside && !mobileMenu.classList.contains('hidden')) {
+                mobileMenu.classList.add('hidden');
+            }
+        });
+
+        // Star Rating System
+        const stars = document.querySelectorAll('.star[data-rating]');
+        const ratingInput = document.getElementById('rating');
+        const ratingValue = document.getElementById('rating-value');
+        const ratingTexts = ['', '⭐ Poor', '⭐⭐ Fair', '⭐⭐⭐ Good', '⭐⭐⭐⭐ Great', '⭐⭐⭐⭐⭐ Excellent'];
+
+        stars.forEach(star => {
+            star.addEventListener('click', function() {
+                const rating = this.getAttribute('data-rating');
+                ratingInput.value = rating;
+                ratingValue.textContent = ratingTexts[rating];
+                
+                // Update active stars
+                stars.forEach(s => {
+                    if (s.getAttribute('data-rating') <= rating) {
+                        s.classList.add('active');
+                    } else {
+                        s.classList.remove('active');
+                    }
+                });
+            });
+
+            star.addEventListener('mouseover', function() {
+                const rating = this.getAttribute('data-rating');
+                stars.forEach(s => {
+                    if (s.getAttribute('data-rating') <= rating) {
+                        s.classList.add('active');
+                    } else {
+                        s.classList.remove('active');
+                    }
+                });
+            });
+        });
+
+        document.querySelector('.form-container').addEventListener('mouseleave', function() {
+            stars.forEach(s => {
+                if (ratingInput.value > 0 && s.getAttribute('data-rating') <= ratingInput.value) {
+                    s.classList.add('active');
+                } else {
+                    s.classList.remove('active');
+                }
+            });
+        });
+
+        // Form Submission
+        document.getElementById('review-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            const name = document.getElementById('name').value.trim();
+            const rating = document.getElementById('rating').value;
+            const reviewText = document.getElementById('review-text').value.trim();
+
+            if (!name) {
+                alert('Please enter your name');
+                return;
+            }
+
+            if (rating === '0') {
+                alert('Please select a rating');
+                return;
+            }
+
+            if (!reviewText) {
+                alert('Please write a review');
+                return;
+            }
+
+            // Get current date and time
+            const now = new Date();
+            const timestamp = 'Just now';
+
+            // Create review card
+            const reviewCard = document.createElement('div');
+            reviewCard.className = 'review-card';
+            reviewCard.innerHTML = `
+                <div class="review-header">
+                    <span class="review-author">${escapeHtml(name)}</span>
+                </div>
+                <div class="flex items-center gap-1 mb-1">
+                    ${Array(parseInt(rating)).fill('<span class="star filled">★</span>').join('')}
+                </div>
+                <p class="review-text">${escapeHtml(reviewText)}</p>
+                <p class="review-timestamp">${timestamp}</p>
+            `;
+
+            // Add to user reviews container at the top
+            const userReviewsContainer = document.getElementById('user-reviews-container');
+            userReviewsContainer.insertBefore(reviewCard, userReviewsContainer.firstChild);
+
+            // Show success message
+            const successMessage = document.getElementById('success-message');
+            successMessage.classList.remove('hidden');
+            setTimeout(() => {
+                successMessage.classList.add('hidden');
+            }, 3000);
+
+            // Reset form
+            this.reset();
+            ratingInput.value = '0';
+            ratingValue.textContent = 'Select a rating';
+            stars.forEach(s => s.classList.remove('active'));
+
+            // Scroll to the new review
+            setTimeout(() => {
+                const reviewsScroll = document.querySelector('.reviews-scroll');
+                reviewsScroll.scrollTop = 0;
+            }, 100);
+        });
+
+        // HTML Escape Function
+        function escapeHtml(text) {
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+    </script>
+</body>
+</html>
